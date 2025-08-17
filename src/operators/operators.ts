@@ -1,0 +1,16 @@
+export enum Operators {
+  EqualTo = "_eq",
+  NotEqualTo = "_neq",
+  GreaterThan = "_gt",
+  LessThan = "_lt",
+  GreaterThanOrEqualTo = "_gte",
+  LessThanOreEqualTo = "_lte",
+  Like = "_like",
+  Contains = "_contains",
+  IsContainedBy = "_isContainedBy",
+  Overlaps = "_overlaps",
+  Exists = "_exists",
+  And = "_and",
+  Or = "_or",
+  Not = "_not",
+}
