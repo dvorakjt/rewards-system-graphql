@@ -7,8 +7,8 @@ const implementedOperators = <const>[
   OperatorSymbols.NotEqualTo,
 ];
 
-export const BooleanComparisonOperators = createUnionType({
-  name: "BooleanComparisonOperators",
+export const BooleanOperators = createUnionType({
+  name: "BooleanOperators",
   types: () =>
     createOperators<boolean, typeof implementedOperators>(
       implementedOperators,

@@ -11,8 +11,8 @@ const implementedOperators = <const>[
   OperatorSymbols.LessThanOreEqualTo,
 ];
 
-export const IntComparisonOperators = createUnionType({
-  name: "IntComparisonOperators",
+export const IntOperators = createUnionType({
+  name: "IntOperators",
   types: () =>
     createOperators<number, typeof implementedOperators>(
       implementedOperators,

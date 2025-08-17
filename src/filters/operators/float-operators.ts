@@ -1,4 +1,4 @@
-import { createUnionType, ID } from "type-graphql";
+import { createUnionType, Float } from "type-graphql";
 import { createOperators } from "./create-operators";
 import { OperatorSymbols } from "./operator-symbols";
 
@@ -11,11 +11,11 @@ const implementedOperators = <const>[
   OperatorSymbols.LessThanOreEqualTo,
 ];
 
-export const IDComparisonOperators = createUnionType({
-  name: "IDComparisonOperators",
+export const FloatOperators = createUnionType({
+  name: "FloatOperators",
   types: () =>
-    createOperators<string, typeof implementedOperators>(
+    createOperators<number, typeof implementedOperators>(
       implementedOperators,
-      ID
+      Float
     ),
 });

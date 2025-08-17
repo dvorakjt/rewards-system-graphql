@@ -1,5 +1,5 @@
 import { InputType, Field, ClassType } from "type-graphql";
-import { capitalize } from "../util/capitalize";
+import { capitalize } from "../../util/capitalize";
 
 type IOperator<T, K extends string> = {
   [Key in K]: T;
@@ -13,7 +13,7 @@ type Operators<T, V extends readonly string[]> = {
 
 export function createOperators<T, TOperators extends readonly string[]>(
   operators: TOperators,
-  compareTo: any, // don't love this any here...
+  compareTo: any, // don't love this `any` here...
   typeName: string = capitalize(compareTo.name)
 ): Operators<T, TOperators> {
   return operators.map((operator) => {

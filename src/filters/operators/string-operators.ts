@@ -1,10 +1,10 @@
-import { createUnionType, Field, InputType } from "type-graphql";
+import { createUnionType } from "type-graphql";
 import { createOperators } from "./create-operators";
 import { OperatorSymbols } from "./operator-symbols";
-import { RegExpScalar } from "../scalars/regex.type";
+import { RegExpScalar } from "../../types/regex";
 
-export const StringComparisonOperators = createUnionType({
-  name: "StringComparisonOperators",
+export const StringOperators = createUnionType({
+  name: "StringOperators",
   types: () => {
     const stringXStringOperators = <const>[
       OperatorSymbols.EqualTo,
@@ -34,7 +34,7 @@ export const StringComparisonOperators = createUnionType({
       ),
       ...createOperators<RegExp, typeof stringXRegExpOperators>(
         stringXRegExpOperators,
-        RegExp,
+        RegExpScalar,
         "StringXRegExp"
       ),
     ] as const;
