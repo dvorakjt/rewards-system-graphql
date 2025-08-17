@@ -5,15 +5,17 @@ type IOperator<T, K extends string> = {
   [Key in K]: T;
 };
 
+type Operators<T, V extends readonly string[]> = {
+  [K in keyof V]: K extends number | `${number}`
+    ? ClassType<IOperator<T, V[K]>>
+    : never;
+};
+
 export function createOperators<T, TOperators extends readonly string[]>(
   operators: TOperators,
   compareTo: any, // don't love this any here...
   typeName: string = capitalize(compareTo.name)
-): {
-  [K in keyof TOperators]: K extends number | `${number}`
-    ? ClassType<IOperator<T, TOperators[K]>>
-    : never;
-} {
+): Operators<T, TOperators> {
   return operators.map((operator) => {
     @InputType(`${typeName}${operator}`)
     class Operator {
@@ -21,9 +23,5 @@ export function createOperators<T, TOperators extends readonly string[]>(
       [operator]: T;
     }
     return Operator;
-  }) as {
-    [K in keyof TOperators]: K extends number | `${number}`
-      ? ClassType<IOperator<T, TOperators[K]>>
-      : never;
-  };
+  }) as Operators<T, TOperators>;
 }

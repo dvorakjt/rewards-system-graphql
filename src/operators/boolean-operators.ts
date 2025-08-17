@@ -1,8 +1,11 @@
-import { createUnionType, InputType, Field } from "type-graphql";
+import { createUnionType } from "type-graphql";
 import { createOperators } from "./create-operators";
-import { Operators } from "./operators";
+import { OperatorSymbols } from "./operator-symbols";
 
-const implementedOperators = <const>[Operators.EqualTo, Operators.NotEqualTo];
+const implementedOperators = <const>[
+  OperatorSymbols.EqualTo,
+  OperatorSymbols.NotEqualTo,
+];
 
 export const BooleanComparisonOperators = createUnionType({
   name: "BooleanComparisonOperators",

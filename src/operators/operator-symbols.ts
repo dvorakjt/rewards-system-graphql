@@ -1,4 +1,4 @@
-export enum Operators {
+export enum OperatorSymbols {
   EqualTo = "_eq",
   NotEqualTo = "_neq",
   GreaterThan = "_gt",
