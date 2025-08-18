@@ -1,4 +1,6 @@
-import { createUnionType, Float } from "type-graphql";
+import { createUnionType } from "type-graphql";
+import { Temporal } from "@js-temporal/polyfill";
+import { InstantScalar } from "../../types";
 import { createOperators } from "./create-operators";
 import { OperatorSymbols } from "./operator-symbols";
 
@@ -11,12 +13,12 @@ const implementedOperators = <const>[
   OperatorSymbols.LessThanOreEqualTo,
 ];
 
-export const FloatOperators = createUnionType({
-  name: "FloatOperators",
+export const InstantOperators = createUnionType({
+  name: "InstantOperators",
   types: () =>
-    createOperators<number, typeof implementedOperators>(
+    createOperators<Temporal.Instant, typeof implementedOperators>(
       implementedOperators,
-      Float,
-      "Float"
+      InstantScalar,
+      "Instant"
     ),
 });

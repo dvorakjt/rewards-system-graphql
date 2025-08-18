@@ -16,6 +16,7 @@ export const IntOperators = createUnionType({
   types: () =>
     createOperators<number, typeof implementedOperators>(
       implementedOperators,
-      Int
+      Int,
+      "Int"
     ),
 });

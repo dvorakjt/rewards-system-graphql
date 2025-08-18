@@ -12,6 +12,7 @@ export const BooleanOperators = createUnionType({
   types: () =>
     createOperators<boolean, typeof implementedOperators>(
       implementedOperators,
-      Boolean
+      Boolean,
+      "Boolean"
     ),
 });
