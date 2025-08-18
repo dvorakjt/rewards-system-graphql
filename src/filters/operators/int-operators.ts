@@ -1,22 +1,23 @@
-import { createUnionType, Int } from "type-graphql";
-import { createOperators } from "./create-operators";
+import { InputType, Field, Int } from "type-graphql";
 import { OperatorSymbols } from "./operator-symbols";
 
-const implementedOperators = <const>[
-  OperatorSymbols.EqualTo,
-  OperatorSymbols.NotEqualTo,
-  OperatorSymbols.GreaterThan,
-  OperatorSymbols.LessThan,
-  OperatorSymbols.GreaterThanOrEqualTo,
-  OperatorSymbols.LessThanOreEqualTo,
-];
+@InputType()
+export class IntOperators {
+  @Field(() => Int, { nullable: true })
+  [OperatorSymbols.EqualTo]?: number;
 
-export const IntOperators = createUnionType({
-  name: "IntOperators",
-  types: () =>
-    createOperators<number, typeof implementedOperators>(
-      implementedOperators,
-      Int,
-      "Int"
-    ),
-});
+  @Field(() => Int, { nullable: true })
+  [OperatorSymbols.NotEqualTo]?: number;
+
+  @Field(() => Int, { nullable: true })
+  [OperatorSymbols.GreaterThan]?: number;
+
+  @Field(() => Int, { nullable: true })
+  [OperatorSymbols.LessThan]?: number;
+
+  @Field(() => Int, { nullable: true })
+  [OperatorSymbols.GreaterThanOrEqualTo]?: number;
+
+  @Field(() => Int, { nullable: true })
+  [OperatorSymbols.LessThanOreEqualTo]?: number;
+}

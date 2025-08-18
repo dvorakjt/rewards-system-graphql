@@ -1,24 +1,25 @@
-import { createUnionType } from "type-graphql";
+import { InputType, Field } from "type-graphql";
 import { Temporal } from "@js-temporal/polyfill";
 import { InstantScalar } from "../../types";
-import { createOperators } from "./create-operators";
 import { OperatorSymbols } from "./operator-symbols";
 
-const implementedOperators = <const>[
-  OperatorSymbols.EqualTo,
-  OperatorSymbols.NotEqualTo,
-  OperatorSymbols.GreaterThan,
-  OperatorSymbols.LessThan,
-  OperatorSymbols.GreaterThanOrEqualTo,
-  OperatorSymbols.LessThanOreEqualTo,
-];
+@InputType()
+export class InstantOperators {
+  @Field(() => InstantScalar, { nullable: true })
+  [OperatorSymbols.EqualTo]?: Temporal.Instant;
 
-export const InstantOperators = createUnionType({
-  name: "InstantOperators",
-  types: () =>
-    createOperators<Temporal.Instant, typeof implementedOperators>(
-      implementedOperators,
-      InstantScalar,
-      "Instant"
-    ),
-});
+  @Field(() => InstantScalar, { nullable: true })
+  [OperatorSymbols.NotEqualTo]?: Temporal.Instant;
+
+  @Field(() => InstantScalar, { nullable: true })
+  [OperatorSymbols.GreaterThan]?: Temporal.Instant;
+
+  @Field(() => InstantScalar, { nullable: true })
+  [OperatorSymbols.LessThan]?: Temporal.Instant;
+
+  @Field(() => InstantScalar, { nullable: true })
+  [OperatorSymbols.GreaterThanOrEqualTo]?: Temporal.Instant;
+
+  @Field(() => InstantScalar, { nullable: true })
+  [OperatorSymbols.LessThanOreEqualTo]?: Temporal.Instant;
+}

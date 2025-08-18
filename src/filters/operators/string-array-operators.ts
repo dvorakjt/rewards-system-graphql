@@ -1,35 +1,35 @@
-import { createUnionType } from "type-graphql";
-import { createOperators } from "./create-operators";
+import { InputType, Field } from "type-graphql";
 import { OperatorSymbols } from "./operator-symbols";
 
-export const StringArrayOperators = createUnionType({
-  name: "StringArrayOperators",
-  types: () => {
-    const arrayXArrayOperators = <const>[
-      OperatorSymbols.EqualTo,
-      OperatorSymbols.NotEqualTo,
-      OperatorSymbols.GreaterThan,
-      OperatorSymbols.LessThan,
-      OperatorSymbols.GreaterThanOrEqualTo,
-      OperatorSymbols.LessThanOreEqualTo,
-      OperatorSymbols.Contains,
-      OperatorSymbols.IsContainedBy,
-      OperatorSymbols.Overlaps,
-    ];
+@InputType()
+export class StringArrayOperators {
+  @Field(() => [String], { nullable: true })
+  [OperatorSymbols.EqualTo]?: string[];
 
-    const arrayXStringOperators = <const>[OperatorSymbols.Contains];
+  @Field(() => [String], { nullable: true })
+  [OperatorSymbols.NotEqualTo]?: string[];
 
-    return [
-      ...createOperators<string[], typeof arrayXArrayOperators>(
-        arrayXArrayOperators,
-        [String],
-        "StringArrXStringArrOperators"
-      ),
-      ...createOperators<string, typeof arrayXStringOperators>(
-        arrayXStringOperators,
-        String,
-        "StringArrXStringOperators"
-      ),
-    ] as const;
-  },
-});
+  @Field(() => [String], { nullable: true })
+  [OperatorSymbols.GreaterThan]?: string[];
+
+  @Field(() => [String], { nullable: true })
+  [OperatorSymbols.LessThan]?: string[];
+
+  @Field(() => [String], { nullable: true })
+  [OperatorSymbols.GreaterThanOrEqualTo]?: string[];
+
+  @Field(() => [String], { nullable: true })
+  [OperatorSymbols.LessThanOreEqualTo]?: string[];
+
+  @Field(() => String, { nullable: true })
+  [OperatorSymbols.Contains]?: string;
+
+  @Field(() => [String], { nullable: true })
+  [OperatorSymbols.ContainsArr]?: string[];
+
+  @Field(() => [String], { nullable: true })
+  [OperatorSymbols.IsContainedBy]?: string[];
+
+  @Field(() => [String], { nullable: true })
+  [OperatorSymbols.Overlaps]?: string[];
+}

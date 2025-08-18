@@ -1,32 +1,24 @@
-import { createUnionType } from "type-graphql";
-import { createOperators } from "./create-operators";
+import { InputType, Field } from "type-graphql";
 import { OperatorSymbols } from "./operator-symbols";
 import { RedemptionForum } from "../../types";
 
-export const RedemptionForumArrayOperators = createUnionType({
-  name: "RedemptionForumOperators",
-  types: () => {
-    const arrayXArrayOperators = <const>[
-      OperatorSymbols.EqualTo,
-      OperatorSymbols.NotEqualTo,
-      OperatorSymbols.Contains,
-      OperatorSymbols.IsContainedBy,
-      OperatorSymbols.Overlaps,
-    ];
+@InputType()
+export class RedemptionForumArrayOperators {
+  @Field(() => [RedemptionForum], { nullable: true })
+  [OperatorSymbols.EqualTo]?: RedemptionForum[];
 
-    const arrayXRFOperators = <const>[OperatorSymbols.Contains];
+  @Field(() => [RedemptionForum], { nullable: true })
+  [OperatorSymbols.NotEqualTo]?: RedemptionForum[];
 
-    return [
-      ...createOperators<string[], typeof arrayXArrayOperators>(
-        arrayXArrayOperators,
-        [RedemptionForum],
-        "RFArrXRFArrOperators"
-      ),
-      ...createOperators<string, typeof arrayXRFOperators>(
-        arrayXRFOperators,
-        RedemptionForum,
-        "RFArrXRFOperators"
-      ),
-    ] as const;
-  },
-});
+  @Field(() => RedemptionForum, { nullable: true })
+  [OperatorSymbols.Contains]?: RedemptionForum;
+
+  @Field(() => [RedemptionForum], { nullable: true })
+  [OperatorSymbols.ContainsArr]?: RedemptionForum[];
+
+  @Field(() => [RedemptionForum], { nullable: true })
+  [OperatorSymbols.IsContainedBy]?: RedemptionForum[];
+
+  @Field(() => [RedemptionForum], { nullable: true })
+  [OperatorSymbols.Overlaps]?: RedemptionForum[];
+}

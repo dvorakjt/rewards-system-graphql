@@ -1,32 +1,26 @@
-import { createUnionType, ID } from "type-graphql";
-import { createOperators } from "./create-operators";
+import { InputType, Field, ID } from "type-graphql";
 import { OperatorSymbols } from "./operator-symbols";
 
-export const IDOperators = createUnionType({
-  name: "IDOperators",
-  types: () => {
-    const idXIDOperators = <const>[
-      OperatorSymbols.EqualTo,
-      OperatorSymbols.NotEqualTo,
-      OperatorSymbols.GreaterThan,
-      OperatorSymbols.LessThan,
-      OperatorSymbols.GreaterThanOrEqualTo,
-      OperatorSymbols.LessThanOreEqualTo,
-    ];
+@InputType()
+export class IDOperators {
+  @Field(() => ID, { nullable: true })
+  [OperatorSymbols.EqualTo]?: string;
 
-    const idXArrayOperators = <const>[OperatorSymbols.IsContainedBy];
+  @Field(() => ID, { nullable: true })
+  [OperatorSymbols.NotEqualTo]?: string;
 
-    return [
-      ...createOperators<string, typeof idXIDOperators>(
-        idXIDOperators,
-        ID,
-        "IDXIDOperators"
-      ),
-      ...createOperators<string[], typeof idXArrayOperators>(
-        idXArrayOperators,
-        [ID],
-        "IDXArrayOperators"
-      ),
-    ] as const;
-  },
-});
+  @Field(() => ID, { nullable: true })
+  [OperatorSymbols.GreaterThan]?: string;
+
+  @Field(() => ID, { nullable: true })
+  [OperatorSymbols.LessThan]?: string;
+
+  @Field(() => ID, { nullable: true })
+  [OperatorSymbols.GreaterThanOrEqualTo]?: string;
+
+  @Field(() => ID, { nullable: true })
+  [OperatorSymbols.LessThanOreEqualTo]?: string;
+
+  @Field(() => [ID], { nullable: true })
+  [OperatorSymbols.IsContainedBy]?: string[];
+}

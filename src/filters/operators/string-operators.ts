@@ -1,42 +1,36 @@
-import { createUnionType } from "type-graphql";
-import { createOperators } from "./create-operators";
+import { InputType, Field } from "type-graphql";
 import { OperatorSymbols } from "./operator-symbols";
-import { RegExpScalar } from "../../types/regex";
+import { RegExpScalar } from "../../types";
 
-export const StringOperators = createUnionType({
-  name: "StringOperators",
-  types: () => {
-    const stringXStringOperators = <const>[
-      OperatorSymbols.EqualTo,
-      OperatorSymbols.NotEqualTo,
-      OperatorSymbols.GreaterThan,
-      OperatorSymbols.LessThan,
-      OperatorSymbols.GreaterThanOrEqualTo,
-      OperatorSymbols.LessThanOreEqualTo,
-      OperatorSymbols.Contains,
-      OperatorSymbols.IsContainedBy,
-    ];
+@InputType()
+export class StringOperators {
+  @Field(() => String, { nullable: true })
+  [OperatorSymbols.EqualTo]?: string;
 
-    const stringXArrayOperators = <const>[OperatorSymbols.IsContainedBy];
+  @Field(() => String, { nullable: true })
+  [OperatorSymbols.NotEqualTo]?: string;
 
-    const stringXRegExpOperators = <const>[OperatorSymbols.Like];
+  @Field(() => String, { nullable: true })
+  [OperatorSymbols.GreaterThan]?: string;
 
-    return [
-      ...createOperators<string, typeof stringXStringOperators>(
-        stringXStringOperators,
-        String,
-        "StringXString"
-      ),
-      ...createOperators<string[], typeof stringXArrayOperators>(
-        stringXArrayOperators,
-        [String],
-        "StringXArray"
-      ),
-      ...createOperators<RegExp, typeof stringXRegExpOperators>(
-        stringXRegExpOperators,
-        RegExpScalar,
-        "StringXRegExp"
-      ),
-    ] as const;
-  },
-});
+  @Field(() => String, { nullable: true })
+  [OperatorSymbols.LessThan]?: string;
+
+  @Field(() => String, { nullable: true })
+  [OperatorSymbols.GreaterThanOrEqualTo]?: string;
+
+  @Field(() => String, { nullable: true })
+  [OperatorSymbols.LessThanOreEqualTo]?: string;
+
+  @Field(() => String, { nullable: true })
+  [OperatorSymbols.Contains]?: string;
+
+  @Field(() => String, { nullable: true })
+  [OperatorSymbols.IsSubstringOf]?: string;
+
+  @Field(() => [String], { nullable: true })
+  [OperatorSymbols.IsContainedBy]?: string[];
+
+  @Field(() => RegExpScalar, { nullable: true })
+  [OperatorSymbols.Like]?: RegExp;
+}

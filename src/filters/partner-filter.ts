@@ -1,94 +1,50 @@
-import { InputType, Field, createUnionType } from "type-graphql";
+import { InputType, Field } from "type-graphql";
 import { StringOperators, OperatorSymbols } from "./operators";
-import { BaseEntityFilters } from "./base-entity-filter";
-import { AllLocationFilters } from "./location-filter";
-import { AllRewardFilters } from "./reward-filter";
+import { BaseEntityFilter } from "./base-entity-filter";
+import { RewardFilter } from "./reward-filter";
+import { LocationFilter } from "./location-filter";
 
 @InputType()
-class PartnerNameFilter {
-  @Field(() => StringOperators)
-  name: typeof StringOperators;
-}
-
-@InputType()
-class PartnerLogoUrlFilter {
-  @Field(() => StringOperators)
-  logoUrl: typeof StringOperators;
-}
-
-@InputType()
-class PartnerDescriptionFilter {
-  @Field(() => StringOperators)
-  description: typeof StringOperators;
-}
-
-@InputType()
-class PartnerWebsiteFilter {
-  @Field(() => StringOperators)
-  website: typeof StringOperators;
-}
-
-@InputType()
-class PartnerWhy8by8Filter {
-  @Field(() => StringOperators)
-  why8by8: typeof StringOperators;
+class RewardExistsOperator {
+  @Field(() => RewardFilter, { nullable: true })
+  [OperatorSymbols.Exists]?: RewardFilter;
 }
 
 @InputType()
 class LocationExistsOperator {
-  @Field(() => AllLocationFilters)
-  [OperatorSymbols.Exists]: typeof AllLocationFilters;
+  @Field(() => LocationFilter, { nullable: true })
+  [OperatorSymbols.Exists]?: LocationFilter;
 }
 
 @InputType()
-class PartnerLocationExists {
-  @Field(() => LocationExistsOperator)
-  locations: LocationExistsOperator;
-}
+export class PartnerFilter extends BaseEntityFilter {
+  @Field(() => StringOperators, { nullable: true })
+  name?: StringOperators;
 
-@InputType()
-class RewardExistsOperator {
-  @Field(() => AllRewardFilters)
-  [OperatorSymbols.Exists]: typeof AllRewardFilters;
-}
+  @Field(() => StringOperators, { nullable: true })
+  logoUrl?: StringOperators;
 
-@InputType()
-class PartnerRewardExists {
-  @Field(() => RewardExistsOperator)
-  rewards: RewardExistsOperator;
-}
+  @Field(() => StringOperators, { nullable: true })
+  description?: StringOperators;
 
-@InputType()
-class PartnerAnd {
-  @Field(() => [AllPartnerFilters])
-  [OperatorSymbols.And]: Array<typeof AllPartnerFilters>;
-}
+  @Field(() => StringOperators, { nullable: true })
+  website?: StringOperators;
 
-@InputType()
-class PartnerOr {
-  @Field(() => [AllPartnerFilters])
-  [OperatorSymbols.Or]: Array<typeof AllPartnerFilters>;
-}
+  @Field(() => StringOperators, { nullable: true })
+  why8by8?: StringOperators;
 
-@InputType()
-class PartnerNot {
-  @Field(() => AllPartnerFilters)
-  [OperatorSymbols.Not]: typeof AllPartnerFilters;
-}
+  @Field(() => RewardExistsOperator, { nullable: true })
+  rewards?: RewardExistsOperator;
 
-export const AllPartnerFilters = createUnionType({
-  name: "AllPartnerFilters",
-  types: () => [
-    ...BaseEntityFilters,
-    PartnerNameFilter,
-    PartnerLogoUrlFilter,
-    PartnerDescriptionFilter,
-    PartnerWebsiteFilter,
-    PartnerWhy8by8Filter,
-    PartnerLocationExists,
-    PartnerRewardExists,
-    PartnerAnd,
-    PartnerOr,
-    PartnerNot,
-  ],
-});
+  @Field(() => LocationExistsOperator, { nullable: true })
+  locations?: LocationExistsOperator;
+
+  @Field(() => [PartnerFilter], { nullable: true })
+  [OperatorSymbols.And]?: Array<PartnerFilter>;
+
+  @Field(() => [PartnerFilter], { nullable: true })
+  [OperatorSymbols.Or]?: Array<PartnerFilter>;
+
+  @Field(() => PartnerFilter, { nullable: true })
+  [OperatorSymbols.Not]?: PartnerFilter;
+}

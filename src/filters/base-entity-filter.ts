@@ -3,25 +3,13 @@ import { IDOperators } from "./operators";
 import { InstantOperators } from "./operators";
 
 @InputType()
-class BaseEntityIDFilter {
-  @Field(() => IDOperators)
-  id: typeof IDOperators;
-}
+export abstract class BaseEntityFilter {
+  @Field(() => IDOperators, { nullable: true })
+  id?: IDOperators;
 
-@InputType()
-class BaseEntityCreatedAtFilter {
-  @Field(() => InstantOperators)
-  createdAt: typeof InstantOperators;
-}
+  @Field(() => InstantOperators, { nullable: true })
+  createdAt?: InstantOperators;
 
-@InputType()
-class BaseEntityUpdatedAtFilter {
-  @Field(() => InstantOperators)
-  updatedAt: typeof InstantOperators;
+  @Field(() => InstantOperators, { nullable: true })
+  updatedAt?: InstantOperators;
 }
-
-export const BaseEntityFilters = <const>[
-  BaseEntityIDFilter,
-  BaseEntityCreatedAtFilter,
-  BaseEntityUpdatedAtFilter,
-];

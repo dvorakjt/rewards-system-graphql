@@ -1,61 +1,31 @@
-import { InputType, Field, createUnionType, Float } from "type-graphql";
-import { BaseEntityFilters } from "./base-entity-filter";
-import { createOperators, OperatorSymbols } from "./operators";
-import { AllPartnerFilters } from "./partner-filter";
-
-const distanceOperatorSymbols = <const>[
-  OperatorSymbols.LessThan,
-  OperatorSymbols.LessThanOreEqualTo,
-];
-
-const DistanceOperators = createUnionType({
-  name: "Distance",
-  types: () =>
-    createOperators<number, typeof distanceOperatorSymbols>(
-      distanceOperatorSymbols,
-      Float,
-      "Distance"
-    ),
-});
+import { InputType, Field, Float } from "type-graphql";
+import { BaseEntityFilter } from "./base-entity-filter";
+import { OperatorSymbols } from "./operators";
+import { PartnerFilter } from "./partner-filter";
 
 @InputType()
-class LocationDistanceFilter {
-  @Field(() => DistanceOperators)
-  distance: typeof DistanceOperators;
+class DistanceOperators {
+  @Field(() => Float, { nullable: true })
+  [OperatorSymbols.LessThan]?: number;
+
+  @Field(() => Float, { nullable: true })
+  [OperatorSymbols.LessThanOreEqualTo]?: number;
 }
 
 @InputType()
-class LocationPartnerFilter {
-  @Field(() => AllPartnerFilters)
-  partner: typeof AllPartnerFilters;
-}
+export class LocationFilter extends BaseEntityFilter {
+  @Field(() => DistanceOperators, { nullable: true })
+  distance?: DistanceOperators;
 
-@InputType()
-class LocationAnd {
-  @Field(() => [AllLocationFilters])
-  [OperatorSymbols.And]: Array<typeof AllLocationFilters>;
-}
+  @Field(() => PartnerFilter, { nullable: true })
+  partner?: PartnerFilter;
 
-@InputType()
-class LocationOr {
-  @Field(() => [AllLocationFilters])
-  [OperatorSymbols.Or]: Array<typeof AllLocationFilters>;
-}
+  @Field(() => [LocationFilter], { nullable: true })
+  [OperatorSymbols.And]?: Array<LocationFilter>;
 
-@InputType()
-class LocationNot {
-  @Field(() => AllLocationFilters)
-  [OperatorSymbols.Not]: typeof AllLocationFilters;
-}
+  @Field(() => [LocationFilter], { nullable: true })
+  [OperatorSymbols.Or]?: Array<LocationFilter>;
 
-export const AllLocationFilters = createUnionType({
-  name: "AllLocationFilters",
-  types: () => [
-    ...BaseEntityFilters,
-    LocationDistanceFilter,
-    LocationPartnerFilter,
-    LocationAnd,
-    LocationOr,
-    LocationNot,
-  ],
-});
+  @Field(() => LocationFilter, { nullable: true })
+  [OperatorSymbols.Not]?: LocationFilter;
+}

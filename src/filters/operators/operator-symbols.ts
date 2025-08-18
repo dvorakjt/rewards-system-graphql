@@ -7,6 +7,8 @@ export enum OperatorSymbols {
   LessThanOreEqualTo = "_lte",
   Like = "_like",
   Contains = "_contains",
+  ContainsArr = "_containsArr",
+  IsSubstringOf = "_isSubstringOf",
   IsContainedBy = "_isContainedBy",
   Overlaps = "_overlaps",
   Exists = "_exists",

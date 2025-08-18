@@ -1,5 +1,5 @@
-import { InputType, Field, createUnionType } from "type-graphql";
-import { BaseEntityFilters } from "./base-entity-filter";
+import { InputType, Field } from "type-graphql";
+import { BaseEntityFilter } from "./base-entity-filter";
 import {
   DurationOperators,
   InstantOperators,
@@ -9,95 +9,43 @@ import {
   StringArrayOperators,
   StringOperators,
 } from "./operators";
-import { AllPartnerFilters } from "./partner-filter";
+import { PartnerFilter } from "./partner-filter";
 
 @InputType()
-class RewardShortDescriptionFilter {
-  @Field(() => StringOperators)
-  shortDescription: typeof StringOperators;
-}
-@InputType()
-class RewardRedemptionForumsFilter {
-  @Field(() => RedemptionForumArrayOperators)
-  redemptionForums: typeof RedemptionForumArrayOperators;
-}
+export class RewardFilter extends BaseEntityFilter {
+  @Field(() => StringOperators, { nullable: true })
+  shortDescription?: StringOperators;
 
-@InputType()
-class RewardCategoriesFilter {
-  @Field(() => StringArrayOperators)
-  categories: typeof StringArrayOperators;
-}
+  @Field(() => RedemptionForumArrayOperators, { nullable: true })
+  redemptionForums?: RedemptionForumArrayOperators;
 
-@InputType()
-class RewardLongDescriptionFilter {
-  @Field(() => StringOperators)
-  longDescription: typeof StringOperators;
-}
+  @Field(() => StringArrayOperators, { nullable: true })
+  categories?: StringArrayOperators;
 
-@InputType()
-class RewardClaimableUntilFilter {
-  @Field(() => InstantOperators)
-  claimableUntil: typeof InstantOperators;
-}
+  @Field(() => StringOperators, { nullable: true })
+  longDescription?: StringOperators;
 
-@InputType()
-class RewardRedeemableUntilFilter {
-  @Field(() => InstantOperators)
-  redeemableUntil: typeof InstantOperators;
-}
+  @Field(() => InstantOperators, { nullable: true })
+  claimableUntil?: InstantOperators;
 
-@InputType()
-class RewardRedeemableForFilter {
-  @Field(() => DurationOperators)
-  redeemableFor: typeof DurationOperators;
-}
+  @Field(() => InstantOperators, { nullable: true })
+  redeemableUntil?: InstantOperators;
 
-@InputType()
-class RewardNumAvailableFilter {
-  @Field(() => IntOperators)
-  rewardsAvailable: typeof IntOperators;
-}
+  @Field(() => DurationOperators, { nullable: true })
+  redeemableFor?: DurationOperators;
 
-@InputType()
-class RewardPartnerFilter {
-  @Field(() => AllPartnerFilters)
-  partner: typeof AllPartnerFilters;
-}
+  @Field(() => IntOperators, { nullable: true })
+  rewardsAvailable?: IntOperators;
 
-@InputType()
-class RewardAnd {
-  @Field(() => [AllRewardFilters])
-  [OperatorSymbols.And]: Array<typeof AllRewardFilters>;
-}
+  @Field(() => PartnerFilter, { nullable: true })
+  partner?: PartnerFilter;
 
-@InputType()
-class RewardOr {
-  @Field(() => [AllRewardFilters])
-  [OperatorSymbols.Or]: Array<typeof AllRewardFilters>;
-}
+  @Field(() => [RewardFilter], { nullable: true })
+  [OperatorSymbols.And]?: Array<RewardFilter>;
 
-@InputType()
-class RewardNot {
-  @Field(() => AllRewardFilters)
-  [OperatorSymbols.Not]: typeof AllRewardFilters;
-}
+  @Field(() => [RewardFilter], { nullable: true })
+  [OperatorSymbols.Or]?: Array<RewardFilter>;
 
-export const AllRewardFilters = createUnionType({
-  name: "AllRewardFilters",
-  types: () => [
-    ...BaseEntityFilters,
-    RewardShortDescriptionFilter,
-    RewardRedemptionForumsFilter,
-    RewardCategoriesFilter,
-    RewardLongDescriptionFilter,
-    RewardClaimableUntilFilter,
-    RewardRedeemableUntilFilter,
-    RewardRedeemableForFilter,
-    RewardRedeemableUntilFilter,
-    RewardNumAvailableFilter,
-    RewardPartnerFilter,
-    RewardAnd,
-    RewardOr,
-    RewardNot,
-  ],
-});
+  @Field(() => RewardFilter, { nullable: true })
+  [OperatorSymbols.Not]?: RewardFilter;
+}
