@@ -36,4 +36,9 @@ export class RewardResolver {
   ): Promise<Reward[]> {
     throw new Error("Not implemented.");
   }
+
+  @Query(() => [String])
+  async categories(): Promise<string[]> {
+    throw new Error("Not implemented.");
+  }
 }

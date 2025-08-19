@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest",
+    "test": "jest",
     "start": "tsx src/app.ts"
   },
   "keywords": [],
@@ -13,10 +13,11 @@
   "type": "commonjs",
   "devDependencies": {
     "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.3.0",
-    "@vitest/coverage-v8": "^3.2.4",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "jest": "^30.0.5",
+    "ts-jest": "^29.4.1",
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "@apollo/server": "^5.0.0",

@@ -24,7 +24,7 @@ export class LocationsArgs {
   after?: string;
 
   @Field(() => LocationFilter, { nullable: true })
-  filter?: typeof LocationFilter;
+  filter?: LocationFilter;
 }
 
 @ArgsType()
@@ -39,12 +39,12 @@ class DistanceArgs {
 @Resolver(() => Location)
 export class LocationResolver {
   @Query(() => Location, { nullable: true })
-  async Location(@Arg("id", () => ID) id: string): Promise<Location | null> {
+  async location(@Arg("id", () => ID) id: string): Promise<Location | null> {
     throw new Error("Not implemented.");
   }
 
   @Query(() => [Location])
-  async Locations(
+  async locations(
     @Args(() => LocationsArgs) { first, after, filter }: LocationsArgs
   ): Promise<Location[]> {
     throw new Error("Not implemented.");

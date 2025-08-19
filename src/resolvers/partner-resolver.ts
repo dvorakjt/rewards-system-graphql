@@ -26,12 +26,12 @@ export class PartnersArgs {
 @Resolver()
 export class PartnerResolver {
   @Query(() => Partner, { nullable: true })
-  async Partner(@Arg("id", () => ID) id: string): Promise<Partner | null> {
+  async partner(@Arg("id", () => ID) id: string): Promise<Partner | null> {
     throw new Error("Not implemented.");
   }
 
   @Query(() => [Partner])
-  async Partners(
+  async partners(
     @Args(() => PartnersArgs) { first, after, filter }: PartnersArgs
   ): Promise<Partner[]> {
     throw new Error("Not implemented.");

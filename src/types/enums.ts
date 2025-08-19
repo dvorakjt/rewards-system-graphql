@@ -1,14 +1,14 @@
 import { registerEnumType } from "type-graphql";
 
 enum DistanceUnits {
-  Meters = "meters",
-  Kilometers = "kilometers",
-  Miles = "miles",
+  Meters = "Meters",
+  Kilometers = "Kilometers",
+  Miles = "Miles",
 }
 
 enum RedemptionForum {
-  Online = "online",
-  InStore = "in-store",
+  Online = "Online",
+  InStore = "InStore",
 }
 
 registerEnumType(DistanceUnits, {

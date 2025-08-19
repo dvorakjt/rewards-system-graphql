@@ -1,16 +1,10 @@
 import "reflect-metadata";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { buildSchema } from "type-graphql";
-import { PartnerResolver } from "./resolvers/partner-resolver";
-import { RewardResolver } from "./resolvers/reward-resolver";
-import { LocationResolver } from "./resolvers/location-resolver";
+import { createSchema } from "./util";
 
 async function main() {
-  const schema = await buildSchema({
-    resolvers: [PartnerResolver, RewardResolver, LocationResolver],
-  });
-
+  const schema = await createSchema();
   const server = new ApolloServer({ schema });
 
   const { url } = await startStandaloneServer(server, {

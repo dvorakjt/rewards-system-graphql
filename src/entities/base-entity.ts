@@ -7,9 +7,9 @@ export abstract class BaseEntity {
   @Field(() => ID)
   id: string;
 
-  @Field(() => InstantScalar)
+  @Field((_type) => InstantScalar)
   createdAt: Temporal.Instant;
 
-  @Field(() => InstantScalar)
+  @Field((_type) => InstantScalar)
   updatedAt: Temporal.Instant;
 }
